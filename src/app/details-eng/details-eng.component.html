@@ -1,0 +1,146 @@
+<div class="container">
+  <br />
+
+  <div *ngIf="englishWords" class="row">
+    <h4 *ngIf="englishWords">
+      English term detail - "{{ englishWords.wordEnglish }} "
+    </h4>
+    <h4 *ngIf="!englishWords">Nothing found, sorry~!</h4>
+
+    <div class="col-md-10">
+      <dt>
+        Definitions: ( {{ englishWords.definitions.length }} )<br /><br /><a
+          class="btn btn-primary btn-sm"
+          href="/englishTerms/add-definition/{{ englishWords._id }}"
+          >Add Another Definition</a
+        >
+      </dt>
+      <br />
+      <div *ngIf="englishWords.definitions">
+        <dd *ngFor="let e of englishWords.definitions">
+          <div class="card">
+            <div class="card-header">
+              <button class="btn btn-primary btn-sm" (click)="likeCount(e._id)">
+                Like&nbsp;&nbsp;<span class="badge bg-secondary">{{
+                  e.likes
+                }}</span></button
+              >&nbsp;&nbsp;Author: {{ e.authorName }} on
+              {{ e.dateCreated | date: "yyyy-MM-dd" }}
+            </div>
+            <div class="card-body">
+              <p class="card-text">
+                {{ e.definition }}
+              </p>
+            </div>
+          </div>
+        </dd>
+      </div>
+      <dt>Field of Study:</dt>
+      <dd>
+        {{ englishWords.fieldOfStudy }}
+      </dd>
+      <dt>Author Name:</dt>
+      <dd>
+        {{ englishWords.authorName }}
+      </dd>
+      <dt>Dates:</dt>
+      <dd>
+        Created: {{ englishWords.dateCreated | date: "yyyy-MM-dd" }} <br />
+        Revised: {{ englishWords.dateRevised | date: "yyyy-MM-dd" }}
+      </dd>
+      <br />
+      <dt>Translations:</dt>
+      <dd>
+        <p>
+          <span>
+            <a
+              class="btn btn-primary btn-sm"
+              href="otherTerms/add-new/{{ englishWords._id }}"
+              >Add Translation</a
+            >&nbsp;&nbsp;</span
+          >
+        </p>
+        <p *ngFor="let oth of otherWords">
+          <span *ngIf="oth.termEnglishId === englishWords._id">
+            <a
+              class="btn btn-info btn-sm"
+              href="otherTerms/details/{{ oth._id }}"
+            >
+              <!-- findTrans will return a string the will be displayed -->
+              {{ findTrans(oth.languageCode) }} </a
+            >&nbsp;&nbsp;</span
+          >
+        </p>
+      </dd>
+
+      &nbsp;&nbsp;
+      <div>
+        <dt>Links</dt>
+        <dd>
+          <p>
+            <span
+              ><a
+                class="btn btn-info btn-sm"
+                target="_blank"
+                *ngIf="englishWords.linkWikipedia"
+                href="{{ englishWords.linkWikipedia }}"
+                >Wikipedia</a
+              >&nbsp;&nbsp;</span
+            >
+            &nbsp;&nbsp;
+            <span
+              ><a
+                class="btn btn-info btn-sm"
+                target="_blank"
+                *ngIf="englishWords.linkYouTube"
+                href="{{ englishWords.linkYouTube }}"
+                >Youtube</a
+              >&nbsp;&nbsp;</span
+            >
+            &nbsp;&nbsp;
+            <span
+              ><a
+                class="btn btn-info btn-sm"
+                target="_blank"
+                *ngIf="englishWords.linkAuthoritative"
+                href="{{ englishWords.linkAuthoritative }}"
+                >Reference</a
+              >&nbsp;&nbsp;</span
+            >
+          </p>
+        </dd>
+        &nbsp;&nbsp;
+        <dt>Was this helpful?</dt>
+        <dd>
+          <p>
+            <button
+              class="btn btn-info btn-sm"
+              (click)="helpYesCount(englishWords._id)"
+            >
+              Yes&nbsp;&nbsp;
+              <span class="badge bg-secondary">{{ englishWords.helpYes }}</span>
+            </button>
+            &nbsp;&nbsp;
+            <button
+              class="btn btn-info btn-sm"
+              (click)="helpNoCount(englishWords._id)"
+            >
+              No &nbsp;&nbsp;
+              <span class="badge bg-secondary">{{ englishWords.helpNo }}</span>
+            </button>
+            &nbsp;&nbsp;
+          </p>
+        </dd>
+      </div>
+
+      <hr />
+      <div style="clear: both">
+        <div class="col-md-4 col-sm-12">
+          <button (click)="backClicked()" type="button" class="btn btn-info">
+            Back to list
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

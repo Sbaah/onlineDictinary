@@ -1,0 +1,35 @@
+<br />
+<h3>List of Non English terms</h3>
+<div *ngIf="otherWords">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Word</th>
+        <th>Author</th>
+        <th>Definition</th>
+        <th>Field of Study</th>
+
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let o of otherWords">
+        <td>{{ o.wordNonEnglish }}</td>
+        <td>{{ o.authorName }}</td>
+        <!-- <td>{{e.definitions.definition}}</td> -->
+        <td *ngIf="o.definitions" class="col-md-5">
+          {{ o.definitions[0].definition }}
+          <span *ngIf="o.definitions.length - 1 > 0">
+            <br />
+            <i>• {{ o.definitions.length - 1 }} other definition(s)</i>
+          </span>
+        </td>
+        <th>{{ o.fieldOfStudy }}</th>
+        <td>
+          <a routerLink="details/{{ o._id }}" class="btn btn-info">Detail</a
+          >&nbsp;
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

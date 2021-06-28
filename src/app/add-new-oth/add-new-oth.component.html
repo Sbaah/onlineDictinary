@@ -1,0 +1,220 @@
+<p>add-new-oth works!</p>
+<div class="row">
+  <div class="col-md-8">
+    <h3 *ngIf="engDetail.wordEnglish">
+      Create A New Nonenglish Translation For - {{ engDetail.wordEnglish }}
+    </h3>
+    <!-- Configure the submit button handler, and define the template reference variable -->
+    <form (ngSubmit)="saveWord()" #f="ngForm">
+      <div class="form-group">
+        <label class="control-label" for="selectedLanguage">Language:</label>
+        <select
+          class="form-control"
+          id="selectedLanguage"
+          name=" selectedLanguage"
+          [(ngModel)]="newWord.languageCode"
+          #languageCode="ngModel"
+        >
+          <option *ngFor="let c of langCode" value=" {{ c.languageCode }}">
+            {{ c.language }}
+          </option>
+        </select>
+      </div>
+      <!-- Input, text -->
+      <div class="form-group">
+        <label class="control-label" for="name">Author name:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="authorName"
+          name="authorName"
+          [(ngModel)]="newWord.authorName"
+          #authorName="ngModel"
+          minlength="5"
+          maxlength="100"
+          autofocus
+          required
+        />
+
+        <!-- Validation error area -->
+        <!-- Single condition... -->
+        <!-- <div [hidden]="name.valid || name.pristine" class='alert alert-danger'> -->
+        <!-- Multiple conditions... -->
+        <div
+          *ngIf="authorName.invalid && (authorName.dirty || authorName.touched)"
+          class="alert alert-danger"
+        >
+          <!-- The code below is situation-dependent - think before coding -->
+          <div *ngIf="authorName.errors?.required">
+            Author is required, 5 to 100 characters
+          </div>
+          <div *ngIf="authorName.errors?.minlength">
+            Author must be at least 5 characters
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="control-label" for="wordNonEnglish"
+          >Term or word in English:</label
+        >
+        <input
+          type="text"
+          class="form-control"
+          id="wordNonEnglish"
+          name="wordNonEnglish"
+          [(ngModel)]="newWord.wordNonEnglish"
+          #wordNonEnglish="ngModel"
+          minlength="5"
+          maxlength="100"
+          autofocus
+          required
+        />
+
+        <div
+          *ngIf="
+            wordNonEnglish.invalid &&
+            (wordNonEnglish.dirty || wordNonEnglish.touched)
+          "
+          class="alert alert-danger"
+        >
+          <!-- The code below is situation-dependent - think before coding -->
+          <div *ngIf="wordNonEnglish.errors?.required">
+            Non English Word is required! 5 - 100 characters
+          </div>
+          <div *ngIf="wordNonEnglish.errors?.minlength">
+            Must be at least 5 characters
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="control-label" for="wordExpanded"
+          >Expansion, if term or word (above) is an acronym or
+          initialism:</label
+        >
+        <input
+          class="form-control"
+          id="wordExpanded"
+          maxlength="100"
+          minlength="3"
+          name="wordExpanded"
+          [(ngModel)]="newWord.wordExpanded"
+          #wordExpanded="ngModel"
+        />
+      </div>
+
+      <div class="form-group">
+        <label class="control-label" for="name">Field of study:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="fieldOfStudy"
+          name="fieldOfStudy"
+          [(ngModel)]="newWord.fieldOfStudy"
+          #fieldOfStudy="ngModel"
+          minlength="5"
+          maxlength="100"
+          placeholder="e.g Computer Engineering"
+          autofocus
+          required
+        />
+
+        <div
+          *ngIf="
+            fieldOfStudy.invalid && (fieldOfStudy.dirty || fieldOfStudy.touched)
+          "
+          class="alert alert-danger"
+        >
+          <!-- The code below is situation-dependent - think before coding -->
+          <div *ngIf="fieldOfStudy.errors?.required">
+            Field of study is required! 5 - 100 characters
+          </div>
+          <div *ngIf="fieldOfStudy.errors?.minlength">
+            Must be at least 5 characters
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="control-label" for="name">Definition:</label>
+        <textarea
+          class="form-control"
+          id="definition"
+          maxlength="5000"
+          [(ngModel)]="wordDef.definition"
+          #definition="ngModel"
+          minlength="10"
+          name="defString"
+          required=""
+          rows="5"
+          autofocus
+          required
+        ></textarea>
+
+        <div
+          *ngIf="definition.invalid && (definition.dirty || definition.touched)"
+          class="alert alert-danger"
+        >
+          <!-- The code below is situation-dependent - think before coding -->
+          <div *ngIf="definition.errors?.required">
+            Definition is required! 10 - 5000 characters
+          </div>
+          <div *ngIf="definition.errors?.minlength">
+            Definition is required! 10 - 5000 characters
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="control-label" for="linkAuthoritative"
+          >Link (URL),authoritative:</label
+        >
+        <input
+          class="form-control"
+          id="linkAuthoritative"
+          maxlength="100"
+          minlength="3"
+          name="linkAuthoritative"
+          #linkAuthoritative="ngModel"
+          [(ngModel)]="newWord.linkAuthoritative"
+          pattern="(http|https)://[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:/~+#()_-]*[\w@?^=%&amp;/~+#()_-])?"
+        />
+
+        <label class="control-label" for="linkWikipedia"
+          >Link (URL) on Wikipedia:</label
+        >
+        <input
+          class="form-control"
+          id="linkWikipedia"
+          maxlength="100"
+          minlength="3"
+          name="linkWikipedia"
+          #linkWikipedia="ngModel"
+          [(ngModel)]="newWord.linkWikipedia"
+          pattern="(http|https)://[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:/~+#()_-]*[\w@?^=%&amp;/~+#()_-])?"
+        />
+
+        <label class="control-label" for="linkYouTube"
+          >Link (URL) on YouTube:</label
+        >
+        <input
+          class="form-control"
+          id="linkYouTube"
+          maxlength="100"
+          minlength="3"
+          name="linkYouTube"
+          #linkYouTube="ngModel"
+          [(ngModel)]="newWord.linkYouTube"
+          pattern="(http|https)://[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:/~+#()_-]*[\w@?^=%&amp;/~+#()_-])?"
+        />
+      </div>
+      <br />
+      <button class="btn btn-primary" type="submit" [disabled]="!f.form.valid">
+        Add New Term
+      </button>
+      &nbsp;&nbsp;
+      <button (click)="back()" type="button" class="btn btn-info">
+        Back to English Term
+      </button>
+    </form>
+  </div>
+</div>

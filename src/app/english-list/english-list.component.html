@@ -1,0 +1,38 @@
+<br />
+<h3>
+  List of English terms -
+  <a class="btn btn-secondary" routerLink="add-new">Add new</a>
+</h3>
+<div *ngIf="englishWords">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Word</th>
+        <th>Author</th>
+        <th>Definition</th>
+        <th>Field of Study</th>
+
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let e of englishWords">
+        <td>{{ e.wordEnglish }}</td>
+        <td>{{ e.authorName }}</td>
+        <!-- <td>{{e.definitions.definition}}</td> -->
+        <td *ngIf="e.definitions" class="col-md-5">
+          {{ e.definitions[0].definition }}
+          <span *ngIf="e.definitions.length - 1 > 0">
+            <br />
+            <i>• {{ e.definitions.length - 1 }} other definition(s)</i>
+          </span>
+        </td>
+        <th>{{ e.fieldOfStudy }}</th>
+        <td>
+          <a routerLink="details/{{ e._id }}" class="btn btn-info">Detail</a
+          >&nbsp;
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

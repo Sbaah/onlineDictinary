@@ -6,6 +6,12 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
+## Hosting
+Hosting is done on Firebase.  
+- Run `ng build`
+- Then `firebase deploy`
+- More infomation about the steps to take can be found at `https://www.positronx.io/deploy-angular-app-to-production-with-firebase-hosting/` 
+
 ## Code scaffolding
 
 Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
